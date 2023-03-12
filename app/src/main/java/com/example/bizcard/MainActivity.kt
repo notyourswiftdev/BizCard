@@ -1,6 +1,7 @@
 package com.example.bizcard
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -10,11 +11,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,8 +30,7 @@ class MainActivity : ComponentActivity() {
             BizCardTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
                     CreateBizCard()
                 }
@@ -60,8 +62,37 @@ fun CreateBizCard() {
             ) {
                 CreateImageProfile()
                 Divider(modifier = Modifier.height(2.5.dp), color = Color.DarkGray)
+                CreateInfo()
+                Button(onClick = {
+                    Log.d("Clicked", "CreateBizCard: Clicked")
+                }) {
+                    Text(text = "Portfolio",
+                        style = MaterialTheme.typography.button)
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun CreateInfo() {
+    Column(modifier = Modifier.padding(5.dp)) {
+        Text(
+            text = "Jolene C.",
+            style = MaterialTheme.typography.h4,
+            color = MaterialTheme.colors.primaryVariant
+        )
+
+        Text(
+            text = "Android and iOS Engineer",
+            modifier = Modifier.padding(3.dp)
+        )
+
+        Text(
+            text = "@jolenec1",
+            modifier = Modifier.padding(3.dp),
+            style = MaterialTheme.typography.subtitle1
+        )
     }
 }
 
@@ -79,7 +110,8 @@ private fun CreateImageProfile() {
 
         Image(
             painter = painterResource(id = R.drawable.profile_image),
-            contentDescription = "Profile Image", modifier = Modifier.size(135.dp),
+            contentDescription = "Profile Image",
+            modifier = Modifier.size(135.dp),
             contentScale = ContentScale.Crop
         )
     }
